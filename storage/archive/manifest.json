@@ -1,0 +1,416 @@
+[
+ {
+  "id": "g-logo",
+  "group": "Графические файлы",
+  "path": "static/img/logo.svg",
+  "description": "Логотип системы"
+ },
+ {
+  "id": "g-01_use_case",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/01_use_case.svg",
+  "description": "Диаграмма вариантов использования"
+ },
+ {
+  "id": "g-02_class",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/02_class.svg",
+  "description": "Диаграмма классов предметной области и модулей"
+ },
+ {
+  "id": "g-03_object",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/03_object.svg",
+  "description": "Диаграмма объектов (снимок заказа)"
+ },
+ {
+  "id": "g-04_component",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/04_component.svg",
+  "description": "Диаграмма компонентов"
+ },
+ {
+  "id": "g-05_deployment",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/05_deployment.svg",
+  "description": "Диаграмма развёртывания"
+ },
+ {
+  "id": "g-06_package",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/06_package.svg",
+  "description": "Диаграмма пакетов"
+ },
+ {
+  "id": "g-07_composite",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/07_composite.svg",
+  "description": "Диаграмма композитной структуры сервера приложений"
+ },
+ {
+  "id": "g-08_profile",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/08_profile.svg",
+  "description": "Диаграмма профилей (стереотипы проекта)"
+ },
+ {
+  "id": "g-09_activity",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/09_activity.svg",
+  "description": "Диаграмма деятельности «Оформление заказа»"
+ },
+ {
+  "id": "g-10_sequence",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/10_sequence.svg",
+  "description": "Диаграмма последовательности «Авторизация пользователя»"
+ },
+ {
+  "id": "g-11_communication",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/11_communication.svg",
+  "description": "Диаграмма коммуникации «Создание заказа»"
+ },
+ {
+  "id": "g-12_state",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/12_state.svg",
+  "description": "Диаграмма состояний заказа"
+ },
+ {
+  "id": "g-13_interaction_overview",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/13_interaction_overview.svg",
+  "description": "Обзорная диаграмма взаимодействия «Работа кассира»"
+ },
+ {
+  "id": "g-14_timing",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/14_timing.svg",
+  "description": "Временна́я диаграмма состояний сессии"
+ },
+ {
+  "id": "g-15_idef0_context",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/15_idef0_context.svg",
+  "description": "IDEF0: контекстная диаграмма A-0 «Обслуживать гостей ресторана»"
+ },
+ {
+  "id": "g-16_idef0_a0",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/16_idef0_a0.svg",
+  "description": "IDEF0: декомпозиция A0"
+ },
+ {
+  "id": "g-17_bpmn",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/17_bpmn.svg",
+  "description": "BPMN: процесс обработки заказа"
+ },
+ {
+  "id": "g-18_dfd",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/18_dfd.svg",
+  "description": "DFD: диаграмма потоков данных первого уровня"
+ },
+ {
+  "id": "g-19_er",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/19_er.svg",
+  "description": "ER-диаграмма базы данных (инфологическая модель)"
+ },
+ {
+  "id": "g-20_architecture",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/20_architecture.svg",
+  "description": "Архитектурная схема системы"
+ },
+ {
+  "id": "g-21_screens",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/21_screens.svg",
+  "description": "Схема экранных форм и навигации"
+ },
+ {
+  "id": "g-22_security",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/22_security.svg",
+  "description": "Схема защиты данных и хранения ключей"
+ },
+ {
+  "id": "g-23_backup",
+  "group": "Графические файлы",
+  "path": "storage/archive/graphics/23_backup.svg",
+  "description": "Схема резервного копирования"
+ },
+ {
+  "id": "g-scr-01_index_guest",
+  "group": "Графические файлы",
+  "path": "storage/archive/screens/01_index_guest.png",
+  "description": "Скриншот интерфейса: страница 1, гость (форма входа)"
+ },
+ {
+  "id": "g-scr-02_index_auth",
+  "group": "Графические файлы",
+  "path": "storage/archive/screens/02_index_auth.png",
+  "description": "Скриншот интерфейса: страница 1 после входа"
+ },
+ {
+  "id": "g-scr-03_system_top",
+  "group": "Графические файлы",
+  "path": "storage/archive/screens/03_system_top.png",
+  "description": "Скриншот интерфейса: страница 2, оглавление"
+ },
+ {
+  "id": "g-scr-04_module_orders",
+  "group": "Графические файлы",
+  "path": "storage/archive/screens/04_module_orders.png",
+  "description": "Скриншот интерфейса: рабочий модуль, заказы"
+ },
+ {
+  "id": "g-scr-05_module_order_form",
+  "group": "Графические файлы",
+  "path": "storage/archive/screens/05_module_order_form.png",
+  "description": "Скриншот интерфейса: форма нового заказа"
+ },
+ {
+  "id": "g-scr-06_module_reports",
+  "group": "Графические файлы",
+  "path": "storage/archive/screens/06_module_reports.png",
+  "description": "Скриншот интерфейса: отчёт «Выручка по ресторанам»"
+ },
+ {
+  "id": "g-scr-07_archive",
+  "group": "Графические файлы",
+  "path": "storage/archive/screens/07_archive.png",
+  "description": "Скриншот интерфейса: страница 3, файловый архив"
+ },
+ {
+  "id": "g-scr-08_mobile_320",
+  "group": "Графические файлы",
+  "path": "storage/archive/screens/08_mobile_320.png",
+  "description": "Скриншот интерфейса: мобильная версия, 320 px"
+ },
+ {
+  "id": "g-scr-09_login_error",
+  "group": "Графические файлы",
+  "path": "storage/archive/screens/09_login_error.png",
+  "description": "Скриншот интерфейса: сообщение об ошибке входа"
+ },
+ {
+  "id": "g-scr-10_module_validation",
+  "group": "Графические файлы",
+  "path": "storage/archive/screens/10_module_validation.png",
+  "description": "Скриншот интерфейса: проверка ввода в форме"
+ },
+ {
+  "id": "d-tz",
+  "group": "Документация",
+  "path": "storage/archive/docs/01_Техническое_задание.docx",
+  "description": "Техническое задание (ГОСТ 34.602-2020, упрощённая структура)"
+ },
+ {
+  "id": "d-pz",
+  "group": "Документация",
+  "path": "storage/archive/docs/02_Пояснительная_записка.docx",
+  "description": "Пояснительная записка (ГОСТ 7.32-2017)"
+ },
+ {
+  "id": "d-user",
+  "group": "Документация",
+  "path": "storage/archive/docs/03_Руководство_пользователя.docx",
+  "description": "Руководство пользователя с экранными формами"
+ },
+ {
+  "id": "d-admin",
+  "group": "Документация",
+  "path": "storage/archive/docs/04_Руководство_администратора.docx",
+  "description": "Руководство администратора: установка, настройка, резервное копирование"
+ },
+ {
+  "id": "d-db",
+  "group": "Документация",
+  "path": "storage/archive/docs/05_Описание_БД_и_модулей.docx",
+  "description": "Описание структуры базы данных и программных модулей"
+ },
+ {
+  "id": "s-sql-schema",
+  "group": "Текстовые файлы",
+  "path": "sql/schema.sql",
+  "description": "SQL-скрипт создания таблиц, ограничений целостности, индексов и представления"
+ },
+ {
+  "id": "s-sql-seed",
+  "group": "Текстовые файлы",
+  "path": "sql/seed.sql",
+  "description": "SQL-скрипт заполнения БД тестовыми данными (сформирован init_db.py)"
+ },
+ {
+  "id": "c-README-md",
+  "group": "Исходный код",
+  "path": "README.md",
+  "description": "Краткая инструкция по установке и запуску"
+ },
+ {
+  "id": "c-requirements-txt",
+  "group": "Исходный код",
+  "path": "requirements.txt",
+  "description": "Список зависимостей Python"
+ },
+ {
+  "id": "c-run-py",
+  "group": "Исходный код",
+  "path": "run.py",
+  "description": "Точка входа: запуск HTTPS-сервера (TLS 1.2+)"
+ },
+ {
+  "id": "c-init_db-py",
+  "group": "Исходный код",
+  "path": "init_db.py",
+  "description": "Создание БД и заполнение тестовыми данными"
+ },
+ {
+  "id": "c-build_manifest-py",
+  "group": "Исходный код",
+  "path": "build_manifest.py",
+  "description": "Формирование манифеста файлового архива"
+ },
+ {
+  "id": "c-app-__init__-py",
+  "group": "Исходный код",
+  "path": "app/__init__.py",
+  "description": "Фабрика приложения, маршруты страниц, обработка ошибок"
+ },
+ {
+  "id": "c-app-config-py",
+  "group": "Исходный код",
+  "path": "app/config.py",
+  "description": "Конфигурация и параметры безопасности"
+ },
+ {
+  "id": "c-app-db-py",
+  "group": "Исходный код",
+  "path": "app/db.py",
+  "description": "Доступ к БД (параметризованные запросы), журнал аудита"
+ },
+ {
+  "id": "c-app-api-py",
+  "group": "Исходный код",
+  "path": "app/api.py",
+  "description": "REST API: добавление, редактирование, удаление, поиск, фильтрация"
+ },
+ {
+  "id": "c-app-reports-py",
+  "group": "Исходный код",
+  "path": "app/reports.py",
+  "description": "Запросы и 5 отчётов по предметной области"
+ },
+ {
+  "id": "c-app-validation-py",
+  "group": "Исходный код",
+  "path": "app/validation.py",
+  "description": "Серверная валидация вводимых данных"
+ },
+ {
+  "id": "c-app-archive-py",
+  "group": "Исходный код",
+  "path": "app/archive.py",
+  "description": "Файловый архив: выдача файлов с проверкой прав, загрузка"
+ },
+ {
+  "id": "c-app-content-py",
+  "group": "Исходный код",
+  "path": "app/content.py",
+  "description": "Текстовое содержимое страниц 1 и 2"
+ },
+ {
+  "id": "c-templates-base-html",
+  "group": "Исходный код",
+  "path": "templates/base.html",
+  "description": "Общий шаблон: шапка, навигация, подвал"
+ },
+ {
+  "id": "c-templates-index-html",
+  "group": "Исходный код",
+  "path": "templates/index.html",
+  "description": "Страница 1 — главная и авторизация"
+ },
+ {
+  "id": "c-templates-system-html",
+  "group": "Исходный код",
+  "path": "templates/system.html",
+  "description": "Страница 2 — описание системы и рабочий модуль"
+ },
+ {
+  "id": "c-templates-archive-html",
+  "group": "Исходный код",
+  "path": "templates/archive.html",
+  "description": "Страница 3 — файловый архив"
+ },
+ {
+  "id": "c-templates-error-html",
+  "group": "Исходный код",
+  "path": "templates/error.html",
+  "description": "Страница ошибки"
+ },
+ {
+  "id": "c-static-css-style-css",
+  "group": "Исходный код",
+  "path": "static/css/style.css",
+  "description": "Стили, адаптивная вёрстка"
+ },
+ {
+  "id": "c-static-js-main-js",
+  "group": "Исходный код",
+  "path": "static/js/main.js",
+  "description": "Клиентская валидация форм, меню, таймер сессии"
+ },
+ {
+  "id": "c-static-js-module-js",
+  "group": "Исходный код",
+  "path": "static/js/module.js",
+  "description": "Рабочий модуль: CRUD, поиск, фильтры, отчёты"
+ },
+ {
+  "id": "c-tests-conftest-py",
+  "group": "Исходный код",
+  "path": "tests/conftest.py",
+  "description": "Окружение автотестов"
+ },
+ {
+  "id": "c-tests-test_app-py",
+  "group": "Исходный код",
+  "path": "tests/test_app.py",
+  "description": "Функциональные тесты и тесты защищённости"
+ },
+ {
+  "id": "k-app-crypto-py",
+  "group": "Криптографические функции",
+  "path": "app/crypto.py",
+  "description": "PBKDF2-HMAC-SHA256 (пароли), AES-256-GCM (поля БД), HMAC-SHA256 (слепой индекс), HKDF (подключи), CSPRNG"
+ },
+ {
+  "id": "k-app-security-py",
+  "group": "Криптографические функции",
+  "path": "app/security.py",
+  "description": "Серверные сессии, CSRF-токены, блокировка подбора, заголовки CSP/HSTS"
+ },
+ {
+  "id": "k-gen_cert-py",
+  "group": "Криптографические функции",
+  "path": "gen_cert.py",
+  "description": "Генерация самоподписанного TLS-сертификата RSA-2048 / SHA-256"
+ },
+ {
+  "id": "k-backup-py",
+  "group": "Криптографические функции",
+  "path": "backup.py",
+  "description": "Резервное копирование с контролем целостности SHA-256"
+ },
+ {
+  "id": "c-zip",
+  "group": "Исходный код",
+  "path": "storage/archive/docs/vkusno_ais_source.zip",
+  "description": "Полный архив исходных файлов сайта (без БД и ключей)"
+ }
+]
