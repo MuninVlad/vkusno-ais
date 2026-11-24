@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="same-origin">
+  <title>Главная — АИС «Вкусно и быстро»</title>
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="index">
+<a class="skip" href="#content">К содержимому</a>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.svg" alt="Логотип" width="44" height="44">
+      <span class="brand-text">
+        <span class="brand-name">АИС «Вкусно и быстро»</span>
+        <span class="brand-sub">АИС учёта заказов сети ресторанов</span>
+      </span>
+    </a>
+    <div class="student">
+      <span><b>Скворцова Анастасия Дмитриевна</b></span>
+      <span>Группа НБИбд-01-24 · Индивидуальная тема №3</span>
+    </div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      <span class="sr">Меню</span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+  <div class="wrap student-m">Скворцова Анастасия Дмитриевна · НБИбд-01-24 · Тема №3</div>
+  <nav id="main-nav" class="main-nav">
+    <div class="wrap nav-row">
+      <ul>
+        <li><a href="index.html" aria-current="page">1. Главная</a></li>
+        <li class="auth-only"><a href="system.html" >2. Описание системы</a></li>
+        <li class="auth-only"><a href="archive.html" >3. Файловый архив</a></li>
+      </ul>
+      <div class="nav-user auth-only">
+        <span class="who"><span data-user-login></span> <small>(<span data-user-role></span>)</small></span>
+        <button class="btn btn-ghost js-logout" type="button">Выход</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="content" class="wrap">
+  <div class="flashes" id="flashes"></div>
+  
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">Страница 1 · Общая информация</p>
+    <h1>Автоматизированная информационная система учёта заказов сети ресторанов «Вкусно и быстро»</h1>
+    <p class="lead">АИС «Вкусно и быстро» — веб-система для сети ресторанов быстрого питания. Она автоматизирует приём и учёт заказов, ведение меню, учёт сотрудников и клиентов программы лояльности и формирует аналитические отчёты о продажах. Сейчас в ресторанах сети эти данные ведутся в разрозненных таблицах и кассовых программах, поэтому управляющий не видит общую картину по сети и тратит время на ручное сведение отчётов.</p>
+    <dl class="facts">
+      <div><dt>Предметная область</dt><dd>Общественное питание, сеть ресторанов быстрого обслуживания</dd></div>
+      <div><dt>Решаемая задача</dt><dd>Единый учёт заказов, меню, персонала и клиентов с аналитикой продаж</dd></div>
+      <div><dt>Тип системы</dt><dd>Веб-приложение с базой данных и разграничением доступа</dd></div>
+    </dl>
+  </div>
+
+  <aside class="auth-card" id="login">
+    <div class="auth-only">
+      <h2>Вы вошли в систему</h2>
+      <p class="muted">Логин: <b data-user-login></b><br>Роль: <b data-user-role></b></p>
+      <div class="stack">
+        <a class="btn" href="system.html">2. Описание системы</a>
+        <a class="btn btn-secondary" href="system.html#module">Рабочий модуль АИС</a>
+        <a class="btn btn-secondary" href="archive.html">3. Файловый архив</a>
+      </div>
+      <button class="btn btn-ghost wide mt js-logout" type="button">Выход</button>
+      <p class="hint">Сессия завершится автоматически после 15 минут бездействия.</p>
+    </div>
+    <div class="guest-only">
+      <h2>Вход в систему</h2>
+      <form id="login-form" novalidate autocomplete="on">
+        <label for="f-login">Логин</label>
+        <input id="f-login" name="login" type="text" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9_.\-]{3,32}">
+        <span class="field-error" data-for="f-login"></span>
+        <label for="f-password">Пароль</label>
+        <div class="pw">
+          <input id="f-password" name="password" type="password" autocomplete="current-password" required maxlength="128">
+          <button type="button" class="pw-toggle" aria-label="Показать пароль">👁</button>
+        </div>
+        <span class="field-error" data-for="f-password"></span>
+        <button class="btn wide" type="submit">Войти</button>
+      </form>
+      <p class="hint">После 5 неудачных попыток вход блокируется на 5 минут.</p>
+    </div>
+  </aside>
+</section>
+
+<section class="grid-2">
+  <article class="card">
+    <h2>Цель разработки</h2>
+    <p>Повысить скорость и точность обработки заказов и обеспечить руководство сети достоверной оперативной информацией о продажах за счёт единой защищённой информационной системы.</p>
+    <h3>Задачи</h3>
+    <ol><li>Проанализировать предметную область и существующие аналоги.</li><li>Сформулировать функциональные и нефункциональные требования, включая требования к безопасности.</li><li>Спроектировать базу данных в 3НФ и архитектуру веб-приложения.</li><li>Реализовать учёт заказов, меню, сотрудников, клиентов и ресторанов (добавление, изменение, удаление, поиск, фильтрация).</li><li>Реализовать 5 аналитических отчётов по продажам.</li><li>Обеспечить авторизацию, разграничение прав по ролям, шифрование конфиденциальных данных и защиту от типовых атак.</li><li>Провести функциональное тестирование и тестирование защищённости, подготовить документацию.</li></ol>
+  </article>
+  <article class="card">
+    <h2>Пользователи (роли) системы</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Роль</th><th>Функции</th></tr></thead>
+      <tbody><tr><td><b>Администратор</b><br><code>admin</code></td><td>Полный доступ: справочники ресторанов и должностей, учётные записи пользователей, все данные и отчёты, загрузка файлов в архив.</td></tr><tr><td><b>Управляющий рестораном</b><br><code>manager</code></td><td>Ведение меню и сотрудников, просмотр и удаление заказов, клиенты, все отчёты, включая результаты кассиров.</td></tr><tr><td><b>Кассир</b><br><code>cashier</code></td><td>Оформление и изменение заказов, смена статуса, регистрация клиентов, просмотр меню, отчёты по продажам.</td></tr></tbody>
+    </table></div>
+  </article>
+</section>
+
+<section class="card">
+  <h2>Основные функции</h2>
+  <ul class="features"><li>Авторизация пользователей с блокировкой после 5 неудачных попыток входа.</li><li>Оформление заказа: выбор позиций меню, типа заказа, способа оплаты, клиента.</li><li>Отслеживание статуса заказа по допустимым переходам: новый → готовится → готов → выдан (отмена возможна до готовности).</li><li>Ведение меню и категорий блюд, цен и доступности.</li><li>Учёт сотрудников и ресторанов сети.</li><li>Программа лояльности: автоматическое начисление 5 % суммы бонусами при выдаче заказа (телефон и e-mail клиентов хранятся в зашифрованном виде).</li><li>Поиск и фильтрация во всех разделах.</li><li>Отчёты: выручка по ресторанам, топ-10 блюд, средний чек по типам заказа, динамика по дням, работа кассиров.</li><li>Журнал аудита действий пользователей.</li><li>Защищённый файловый архив проекта.</li></ul>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    © 2026 Автоматизированная информационная система учёта заказов сети ресторанов «Вкусно и быстро». Скворцова Анастасия Дмитриевна, НБИбд-01-24.
+    <span class="idle auth-only" id="idle-info"></span>
+  </div>
+</footer>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/store.js"></script>
+
+<script src="assets/js/app.js"></script>
+</body>
+</html>

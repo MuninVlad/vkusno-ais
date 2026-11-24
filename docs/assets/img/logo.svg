@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Логотип АИС">
+  <rect width="64" height="64" rx="14" fill="#ee8a2b"/>
+  <path d="M14 30c0-9 8-15 18-15s18 6 18 15z" fill="#fff4e3"/>
+  <circle cx="24" cy="23" r="1.6" fill="#ee8a2b"/><circle cx="32" cy="20" r="1.6" fill="#ee8a2b"/><circle cx="40" cy="23" r="1.6" fill="#ee8a2b"/>
+  <rect x="12" y="32" width="40" height="5" rx="2.5" fill="#2f7a5c"/>
+  <rect x="13" y="39" width="38" height="5" rx="2" fill="#12352a"/>
+  <path d="M14 46h36c0 4-3 6-7 6H21c-4 0-7-2-7-6z" fill="#fff4e3"/>
+  <path d="M46 8l-6 10h5l-4 9 9-12h-5l4-7z" fill="#12352a"/>
+</svg>

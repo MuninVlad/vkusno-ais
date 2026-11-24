@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' blob: data:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'">
+  <meta name="referrer" content="same-origin">
+  <title>Описание системы — АИС «Вкусно и быстро»</title>
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body data-page="system">
+<a class="skip" href="#content">К содержимому</a>
+<header class="site-header">
+  <div class="wrap header-row">
+    <a class="brand" href="index.html">
+      <img src="assets/img/logo.svg" alt="Логотип" width="44" height="44">
+      <span class="brand-text">
+        <span class="brand-name">АИС «Вкусно и быстро»</span>
+        <span class="brand-sub">АИС учёта заказов сети ресторанов</span>
+      </span>
+    </a>
+    <div class="student">
+      <span><b>Скворцова Анастасия Дмитриевна</b></span>
+      <span>Группа НБИбд-01-24 · Индивидуальная тема №3</span>
+    </div>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+      <span class="sr">Меню</span><span class="bar"></span><span class="bar"></span><span class="bar"></span>
+    </button>
+  </div>
+  <div class="wrap student-m">Скворцова Анастасия Дмитриевна · НБИбд-01-24 · Тема №3</div>
+  <nav id="main-nav" class="main-nav">
+    <div class="wrap nav-row">
+      <ul>
+        <li><a href="index.html" >1. Главная</a></li>
+        <li class="auth-only"><a href="system.html" aria-current="page">2. Описание системы</a></li>
+        <li class="auth-only"><a href="archive.html" >3. Файловый архив</a></li>
+      </ul>
+      <div class="nav-user auth-only">
+        <span class="who"><span data-user-login></span> <small>(<span data-user-role></span>)</small></span>
+        <button class="btn btn-ghost js-logout" type="button">Выход</button>
+      </div>
+    </div>
+  </nav>
+</header>
+
+<main id="content" class="wrap">
+  <div class="flashes" id="flashes"></div>
+  
+<div id="secure" data-src="data/page2.enc" data-aad="page2">
+  <p class="muted">Расшифровка содержимого…</p>
+  <noscript>Для просмотра страницы включите JavaScript.</noscript>
+</div>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    © 2026 Автоматизированная информационная система учёта заказов сети ресторанов «Вкусно и быстро». Скворцова Анастасия Дмитриевна, НБИбд-01-24.
+    <span class="idle auth-only" id="idle-info"></span>
+  </div>
+</footer>
+<script src="assets/js/auth.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/localapi.js"></script>
+<script src="assets/js/app.js"></script>
+</body>
+</html>
