@@ -1,0 +1,14 @@
+digraph ARCH {
+  rankdir=TB; compound=true; @STYLE@ ranksep=0.7;
+  node [shape=box, style="rounded,filled", fillcolor="#ffffff"];
+  subgraph cluster_1 { label="Уровень представления (клиент)"; style="rounded,filled"; fillcolor="#f2f8f4"; color="#2f7a5c";
+    b1 [label="Стр. 1 «Главная»\n+ форма входа"]; b2 [label="Стр. 2 «Описание»\n+ рабочий модуль"]; b3 [label="Стр. 3 «Архив»"]; js [label="main.js · module.js\n(fetch + CSRF)"]; }
+  subgraph cluster_2 { label="Уровень бизнес-логики (сервер приложений Flask, HTTPS :8443)"; style="rounded,filled"; fillcolor="#fff9f1"; color="#ee8a2b";
+    mw [label="Middleware безопасности: сессия → CSRF → права → заголовки (CSP, HSTS)", width=7, fillcolor="#e5f1ea"];
+    r1 [label="Страницы\n(main)"]; r2 [label="REST API\n(api)"]; r3 [label="Отчёты\n(reports)"]; r4 [label="Файлы\n(archive)"]; cr [label="Криптография\n(crypto)"]; }
+  subgraph cluster_3 { label="Уровень данных"; style="rounded,filled"; fillcolor="#f7f5f0"; color="#5d6b64";
+    db [label="SQLite vkusno.db\n13 таблиц, 3НФ", shape=cylinder, fillcolor="#e5f1ea"]; fs [label="storage/\nфайлы архива", shape=folder]; key [label="data.key", shape=note]; }
+  b1 -> mw [lhead=cluster_2, label="HTTPS (TLS 1.2+)"]; js -> mw;
+  mw -> r1; mw -> r2; mw -> r3; mw -> r4; r2 -> cr;
+  r2 -> db [label="параметризованные\nSQL-запросы"]; r3 -> db; r1 -> db; r4 -> fs; cr -> key [style=dashed];
+}

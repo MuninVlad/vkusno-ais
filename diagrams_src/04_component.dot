@@ -1,0 +1,15 @@
+digraph COMP {
+  rankdir=LR; compound=true; @STYLE@
+  node [shape=component, style=filled, fillcolor="#fff4e3"];
+  subgraph cluster_client { label="Браузер"; style=rounded; color="#2f7a5c";
+    ui [label="Страницы HTML/CSS"]; mainjs [label="main.js\n(меню, валидация)"]; modjs [label="module.js\n(рабочий модуль)"]; }
+  subgraph cluster_srv { label="Сервер приложений Flask"; style=rounded; color="#ee8a2b";
+    web [label="main\n(маршруты страниц)"]; apic [label="api\n(CRUD)"]; rep [label="reports\n(отчёты)"]; arc [label="archive\n(файлы)"];
+    sec [label="security\n(сессии, CSRF, права)", fillcolor="#e5f1ea"]; cry [label="crypto\n(PBKDF2, AES-GCM, HMAC)", fillcolor="#e5f1ea"];
+    val [label="validation"]; dbm [label="db\n(параметризованные\nзапросы)"]; }
+  node [shape=cylinder, fillcolor="#e5f1ea"];
+  sqlite [label="SQLite\nvkusno.db"]; store [label="storage/\n(архив файлов)"]; key [label="instance/data.key", shape=note];
+  ui -> web [label="HTTPS"]; modjs -> apic [label="JSON/HTTPS"]; modjs -> rep;
+  web -> sec; apic -> sec; rep -> sec; arc -> sec; apic -> val; apic -> cry; sec -> cry; sec -> dbm; apic -> dbm; rep -> dbm;
+  dbm -> sqlite; arc -> store; cry -> key [style=dashed];
+}

@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% block title %}Файловый архив — {{ cfg.SYSTEM_NAME }}{% endblock %}
+{% block content %}
+<p class="eyebrow">Страница 3 · Файловый архив</p>
+<h1>Файловый архив проекта</h1>
+<p class="muted">Все файлы выдаются через защищённый серверный обработчик и доступны только после входа в систему.
+  «Открыть» показывает файл в браузере, «Скачать» сохраняет его на компьютер.</p>
+
+<nav class="toc card" aria-label="Разделы архива">
+  <h2>Разделы</h2>
+  <ol>{% for gname, items in groups %}<li><a href="#grp-{{ loop.index }}">{{ gname }}</a> <span class="muted">({{ items|length }})</span></li>{% endfor %}</ol>
+</nav>
+
+{% for gname, items in groups %}
+<section class="doc" id="grp-{{ loop.index }}">
+  <h2>{{ gname }}</h2>
+  <div class="table-wrap"><table class="files">
+    <thead><tr><th>Имя файла</th><th>Описание</th><th>Формат</th><th>Размер</th><th>Изменён</th><th>Действия</th></tr></thead>
+    <tbody>{% for f in items %}
+      <tr>
+        <td class="fname"><code>{{ f.name }}</code></td>
+        <td>{{ f.description }}</td>
+        <td>{{ f.format }}</td>
+        <td class="nowrap">{{ f.size }}</td>
+        <td class="nowrap">{{ f.mtime }}</td>
+        <td class="actions">
+          {% if f.viewable %}<a class="btn btn-sm btn-secondary" href="{{ url_for('files.get_file', fid=f.id) }}" target="_blank" rel="noopener">Открыть</a>{% endif %}
+          <a class="btn btn-sm" href="{{ url_for('files.get_file', fid=f.id, download=1) }}">Скачать</a>
+          {% if user.role == 'admin' and f.id.startswith('u-') %}
+          <form method="post" action="{{ url_for('files.delete_upload', fid=f.id) }}" class="inline js-confirm" data-confirm="Удалить файл?">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+            <button class="btn btn-sm btn-danger" type="submit">Удалить</button>
+          </form>{% endif %}
+        </td>
+      </tr>{% endfor %}
+    </tbody>
+  </table></div>
+</section>
+{% endfor %}
+
+{% if user.role == 'admin' %}
+<section class="card" id="upload">
+  <h2>Загрузка файла в архив</h2>
+  <form method="post" action="{{ url_for('files.upload') }}" enctype="multipart/form-data" class="upload-form" id="upload-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <label for="u-file">Файл (PNG, JPEG или PDF, до 5 МБ)</label>
+    <input id="u-file" type="file" name="file" accept=".png,.jpg,.jpeg,.pdf" required>
+    <span class="field-error" data-for="u-file"></span>
+    <label for="u-desc">Описание</label>
+    <input id="u-desc" type="text" name="description" maxlength="200">
+    <button class="btn" type="submit">Загрузить</button>
+  </form>
+</section>
+{% endif %}
+{% endblock %}

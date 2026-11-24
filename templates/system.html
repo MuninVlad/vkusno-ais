@@ -1,0 +1,281 @@
+{% extends "base.html" %}
+{% block title %}Описание системы — {{ cfg.SYSTEM_NAME }}{% endblock %}
+{% set ns = namespace(fig=0, tab=0) %}
+{% macro figure(file, caption) -%}
+  {% set ns.fig = ns.fig + 1 %}
+  {% set fid = 'g-' ~ file.rsplit('.', 1)[0] %}
+  <figure class="fig" id="fig-{{ ns.fig }}">
+    <a href="{{ url_for('files.get_file', fid=fid) }}" target="_blank" rel="noopener" title="Открыть в полном размере">
+      <img src="{{ url_for('files.get_file', fid=fid) }}" alt="{{ caption }}">
+    </a>
+    <figcaption>Рисунок {{ ns.fig }} — {{ caption }}</figcaption>
+  </figure>
+{%- endmacro %}
+{% macro tcap(text) -%}{% set ns.tab = ns.tab + 1 %}<p class="tcap" id="tab-{{ ns.tab }}">Таблица {{ ns.tab }} — {{ text }}</p>{%- endmacro %}
+
+{% block content %}
+<p class="eyebrow">Страница 2 · Полное описание системы</p>
+<h1>Описание АИС «Вкусно и быстро»</h1>
+
+<nav class="toc card" aria-label="Оглавление">
+  <h2>Оглавление</h2>
+  <ol>
+    <li><a href="#tz">Техническое задание</a></li>
+    <li><a href="#domain">Описание предметной области и анализ аналогов</a></li>
+    <li><a href="#task">Постановка задачи и требования</a>
+      <ol><li><a href="#scope">Границы автоматизации</a></li><li><a href="#roles">Роли и права</a></li>
+          <li><a href="#fr">Функциональные требования</a></li><li><a href="#nfr">Нефункциональные требования</a></li></ol></li>
+    <li><a href="#design">Проектирование</a>
+      <ol><li><a href="#uml">UML-диаграммы (14 типов)</a></li><li><a href="#bp">Бизнес-процессы: IDEF0, BPMN, DFD</a></li>
+          <li><a href="#er">Инфологическая модель (ER)</a></li><li><a href="#datalog">Даталогическая модель</a></li>
+          <li><a href="#norm">Нормализация</a></li><li><a href="#arch">Архитектура системы</a></li>
+          <li><a href="#ui">Экранные формы и навигация</a></li></ol></li>
+    <li><a href="#tools">Инструментальные средства</a></li>
+    <li><a href="#security">Безопасность и шифрование</a>
+      <ol><li><a href="#threats">Угрозы и методы защиты</a></li><li><a href="#crypto">Криптографические алгоритмы</a></li>
+          <li><a href="#keys">Схема хранения ключей</a></li><li><a href="#backup">Резервное копирование</a></li></ol></li>
+    <li><a href="#impl">Реализация</a></li>
+    <li><a href="#testing">Тестирование</a>
+      <ol><li><a href="#test-plan">План тестирования</a></li><li><a href="#test-func">Функциональные тесты</a></li>
+          <li><a href="#test-sec">Тесты защищённости</a></li><li><a href="#test-stats">Сводная статистика</a></li>
+          <li><a href="#bugs">Выявленные и устранённые ошибки</a></li></ol></li>
+    <li><a href="#module">Рабочий модуль АИС (работа с БД)</a></li>
+  </ol>
+</nav>
+
+<!-- ================================================================ 1 ТЗ -->
+<section id="tz" class="doc">
+  <h2>1. Техническое задание</h2>
+  <p class="muted">Упрощённая структура по ГОСТ 34.602-2020.</p>
+  {% for title, paras in c.TZ %}
+    <h3>{{ title }}</h3>
+    {% for p in paras %}<p>{{ p }}</p>{% endfor %}
+  {% endfor %}
+</section>
+
+<!-- ================================================================ 2 Предметная область -->
+<section id="domain" class="doc">
+  <h2>2. Описание предметной области и анализ аналогов</h2>
+  {% for p in c.DOMAIN %}<p>{{ p }}</p>{% endfor %}
+  <h3>2.1. Анализ существующих аналогов</h3>
+  {{ tcap("Сравнение систем-аналогов") }}
+  <div class="table-wrap"><table>
+    <thead><tr><th>Система</th><th>Описание</th><th>Достоинства</th><th>Недостатки</th></tr></thead>
+    <tbody>{% for n, d, plus, minus in c.ANALOGS %}<tr><td><b>{{ n }}</b></td><td>{{ d }}</td><td>{{ plus }}</td><td>{{ minus }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  <h3>2.2. Обоснование необходимости разработки</h3>
+  <p>{{ c.NEED }}</p>
+</section>
+
+<!-- ================================================================ 3 Постановка задачи -->
+<section id="task" class="doc">
+  <h2>3. Постановка задачи и требования</h2>
+  <p><b>Цель:</b> {{ c.GOAL }}</p>
+  <p><b>Задачи:</b></p>
+  <ol>{% for t in c.TASKS %}<li>{{ t }}</li>{% endfor %}</ol>
+
+  <h3 id="scope">3.1. Границы автоматизации</h3>
+  {{ tcap("Границы автоматизации") }}
+  <div class="table-wrap"><table>
+    <thead><tr><th>Входит в систему</th><th>Не входит в систему</th></tr></thead>
+    <tbody>{% for i in range([c.SCOPE_IN|length, c.SCOPE_OUT|length]|max) %}
+      <tr><td>{{ c.SCOPE_IN[i] if i < c.SCOPE_IN|length else '' }}</td><td>{{ c.SCOPE_OUT[i] if i < c.SCOPE_OUT|length else '' }}</td></tr>
+    {% endfor %}</tbody>
+  </table></div>
+
+  <h3 id="fr">3.2. Функциональные требования</h3>
+  {{ tcap("Функциональные требования") }}
+  <div class="table-wrap"><table>
+    <thead><tr><th>Код</th><th>Требование</th><th>Роли</th></tr></thead>
+    <tbody>{% for code, t, r in c.FR %}<tr><td><code>{{ code }}</code></td><td>{{ t }}</td><td>{{ r }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+
+  <h3 id="nfr">3.3. Нефункциональные требования</h3>
+  {{ tcap("Нефункциональные требования") }}
+  <div class="table-wrap"><table>
+    <thead><tr><th>Группа</th><th>Код</th><th>Требование</th></tr></thead>
+    <tbody>{% for g_, code, t in c.NFR %}<tr><td>{{ g_ }}</td><td><code>{{ code }}</code></td><td>{{ t }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+
+  <h3 id="roles">3.4. Пользователи (роли) и права доступа</h3>
+  {% for name, code, d in c.ROLES %}<p><b>{{ name }}</b> (<code>{{ code }}</code>) — {{ d }}</p>{% endfor %}
+  {{ tcap("Матрица прав доступа (проверяется на сервере)") }}
+  <div class="table-wrap"><table class="matrix">
+    <thead><tr><th>Раздел</th><th>Администратор</th><th>Управляющий</th><th>Кассир</th></tr></thead>
+    <tbody>{% for title, row in perms %}<tr><td>{{ title }}</td>{% for cell in row %}<td>{{ cell }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+  </table></div>
+  <p class="muted">Ч — чтение, Д — добавление, И — изменение, У — удаление.</p>
+</section>
+
+<!-- ================================================================ 4 Проектирование -->
+<section id="design" class="doc">
+  <h2>4. Проектирование</h2>
+  <h3 id="uml">4.1. UML-диаграммы</h3>
+  <p>Ниже приведены все 14 типов диаграмм UML 2.5: 7 структурных и 7 поведенческих. Нажмите на рисунок, чтобы открыть его в полном размере.</p>
+  {% for f, cap, sect in c.FIGURES if sect == 'uml' %}{{ figure(f, cap) }}{% endfor %}
+
+  <h3 id="bp">4.2. Описание бизнес-процессов</h3>
+  <p>Функциональная модель IDEF0 описывает процесс «Обслуживать гостей ресторана» и его декомпозицию. Модель BPMN показывает порядок обработки заказа по участникам. DFD показывает потоки данных между внешними сущностями, процессами системы и хранилищами.</p>
+  {% for f, cap, sect in c.FIGURES if sect == 'bp' %}{{ figure(f, cap) }}{% endfor %}
+
+  <h3 id="er">4.3. Инфологическая модель данных</h3>
+  <p>Сущности: Ресторан, Должность, Сотрудник, Категория, Позиция меню, Клиент, Заказ, Позиция заказа, Пользователь, Роль, Сессия, Попытка входа, Запись журнала аудита. Основные связи:
+    ресторан 1:N сотрудники и заказы; заказ M:N позиции меню (через «Позицию заказа»); клиент 1:N заказы (необязательная);
+    сотрудник 1:1 пользователь (необязательная); роль 1:N пользователи.</p>
+  {% for f, cap, sect in c.FIGURES if sect == 'data' %}{{ figure(f, cap) }}{% endfor %}
+
+  <h3 id="datalog">4.4. Даталогическая модель</h3>
+  <p>Структура таблиц построена по системному каталогу рабочей БД, поэтому всегда совпадает с реальной схемой. Скрипт создания — <code>sql/schema.sql</code> (страница 3).</p>
+  {% for t in schema %}
+    {{ tcap("Структура таблицы «" ~ t.name ~ "» — " ~ t.title) }}
+    <div class="table-wrap"><table class="dl">
+      <thead><tr><th>Поле</th><th>Тип</th><th>Ключи и ограничения</th><th>Описание</th></tr></thead>
+      <tbody>{% for col in t.cols %}<tr><td><code>{{ col.name }}</code></td><td>{{ col.type }}</td><td>{{ col.cons|join('; ') }}</td><td>{{ col.note }}</td></tr>{% endfor %}</tbody>
+    </table></div>
+  {% endfor %}
+
+  <h3 id="norm">4.5. Нормализация базы данных</h3>
+  {{ tcap("Приведение к 3НФ") }}
+  <div class="table-wrap"><table>
+    <thead><tr><th>Нормальная форма</th><th>Обоснование выполнения</th></tr></thead>
+    <tbody>{% for nf, t in c.NORMALIZATION %}<tr><td><b>{{ nf }}</b></td><td>{{ t }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+
+  <h3 id="arch">4.6. Архитектура системы</h3>
+  {% for p in c.ARCHITECTURE %}<p>{{ p }}</p>{% endfor %}
+  {% for f, cap, sect in c.FIGURES if sect == 'arch' %}{{ figure(f, cap) }}{% endfor %}
+
+  <h3 id="ui">4.7. Проектирование интерфейса</h3>
+  {{ tcap("Экранные формы") }}
+  <div class="table-wrap"><table>
+    <thead><tr><th>Форма</th><th>Адрес</th><th>Состав</th></tr></thead>
+    <tbody>{% for n, u, d in c.SCREENS %}<tr><td><b>{{ n }}</b></td><td><code>{{ u }}</code></td><td>{{ d }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  {% for f, cap, sect in c.FIGURES if sect == 'ui' %}{{ figure(f, cap) }}{% endfor %}
+</section>
+
+<!-- ================================================================ 5 Инструменты -->
+<section id="tools" class="doc">
+  <h2>5. Выбор инструментальных средств</h2>
+  {{ tcap("Инструментальные средства и обоснование выбора") }}
+  <div class="table-wrap"><table>
+    <thead><tr><th>Назначение</th><th>Выбрано</th><th>Лицензия</th><th>Производительность</th><th>Поддержка</th><th>Трудоёмкость освоения</th><th>Альтернативы</th></tr></thead>
+    <tbody>{% for row in c.TOOLS %}<tr><td>{{ row[0] }}</td><td><b>{{ row[1] }}</b></td>{% for v in row[2:] %}<td>{{ v }}</td>{% endfor %}</tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================ 6 Безопасность -->
+<section id="security" class="doc">
+  <h2>6. Безопасность и шифрование</h2>
+  <h3 id="threats">6.1. Угрозы и методы защиты</h3>
+  {{ tcap("Угроза — метод защиты — способ реализации") }}
+  <div class="table-wrap"><table>
+    <thead><tr><th>Угроза</th><th>Метод защиты</th><th>Способ реализации</th></tr></thead>
+    <tbody>{% for a, b, d in c.THREATS %}<tr><td><b>{{ a }}</b></td><td>{{ b }}</td><td>{{ d }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+
+  <h3 id="crypto">6.2. Используемые криптографические алгоритмы</h3>
+  <p><b>Хеширование</b> — необратимое преобразование, поэтому подходит для того, что нужно только проверять: пароли, целостность резервных копий, идентификаторы сессий в БД.
+     <b>Шифрование</b> — обратимое преобразование с ключом, поэтому подходит для данных, которые нужно восстановить: телефоны и e-mail клиентов и сотрудников.
+     Пароль нельзя шифровать: тот, у кого есть ключ, смог бы его расшифровать. А телефон нельзя хешировать: его уже не удастся показать сотруднику.</p>
+  {{ tcap("Алгоритмы, длины ключей и режимы работы") }}
+  <div class="table-wrap"><table>
+    <thead><tr><th>Назначение</th><th>Алгоритм</th><th>Параметры</th><th>Обоснование</th></tr></thead>
+    <tbody>{% for a, b, d, e in c.CRYPTO %}<tr><td>{{ a }}</td><td><b>{{ b }}</b></td><td>{{ d }}</td><td>{{ e }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  <p>Реализация: модуль <code>app/crypto.py</code> (хеширование, AES-GCM, HMAC, HKDF), <code>app/security.py</code> (сессии, CSRF), <code>gen_cert.py</code> (сертификат). Ссылки на файлы есть в разделе «Криптографические функции» на странице 3.</p>
+
+  <h3 id="keys">6.3. Схема хранения ключа шифрования</h3>
+  {% for p in c.KEY_SCHEME %}<p>{{ p }}</p>{% endfor %}
+  {% for f, cap, sect in c.FIGURES if sect == 'sec' and 'security' in f %}{{ figure(f, cap) }}{% endfor %}
+
+  <h3 id="backup">6.4. Резервное копирование БД и файлов</h3>
+  {% for p in c.BACKUP %}<p>{{ p }}</p>{% endfor %}
+  {% for f, cap, sect in c.FIGURES if sect == 'sec' and 'backup' in f %}{{ figure(f, cap) }}{% endfor %}
+</section>
+
+<!-- ================================================================ 7 Реализация -->
+<section id="impl" class="doc">
+  <h2>7. Реализация</h2>
+  <p>База данных создаётся скриптом <code>sql/schema.sql</code> и заполняется программой <code>init_db.py</code>, которая шифрует персональные данные и хеширует пароли, а затем выгружает <code>sql/seed.sql</code>. Сейчас в БД:</p>
+  {{ tcap("Количество записей в основных таблицах") }}
+  <div class="table-wrap"><table class="narrow">
+    <thead><tr><th>Таблица</th><th>Записей</th></tr></thead>
+    <tbody>{% for k, v in counts.items() %}<tr><td><code>{{ k }}</code></td><td>{{ v }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+  <p>Функции добавления, редактирования, удаления, поиска и фильтрации, а также 5 отчётов доступны в <a href="#module">рабочем модуле</a> ниже. Отчёты: выручка по ресторанам за период; топ-10 позиций меню; средний чек и доля по типам заказа; динамика выручки по дням; результаты работы кассиров.</p>
+</section>
+
+<!-- ================================================================ 8 Тестирование -->
+<section id="testing" class="doc">
+  <h2>8. Тестирование</h2>
+  <h3 id="test-plan">8.1. План тестирования</h3>
+  <p>Объект — веб-приложение целиком: страницы, API, БД. Методы: автоматизированное функциональное тестирование и тестирование защищённости (pytest + тестовый клиент Flask, файл <code>tests/test_app.py</code>), проверка граничных и некорректных данных, проверка вёрстки и сценариев работы в браузере Chromium (Playwright) на ширинах 320 и 1366 px, ручная проверка в Firefox и Microsoft Edge. Критерий приёмки — все сценарии имеют статус «Пройден». Фактические результаты ниже взяты из последнего прогона тестов{% if results.run_at %} ({{ results.run_at }}){% endif %}.</p>
+
+  <h3 id="test-func">8.2. Функциональное тестирование</h3>
+  {{ tcap("Тестовые сценарии: функции и валидация данных") }}
+  <div class="table-wrap"><table class="tests">
+    <thead><tr><th>№</th><th>Описание</th><th>Входные данные</th><th>Ожидаемый результат</th><th>Фактический результат</th><th>Статус</th></tr></thead>
+    <tbody>{% for t in results.tests or [] if t.group == 'func' %}
+      <tr><td>{{ t.id }}</td><td>{{ t.title }}</td><td>{{ t.input }}</td><td>{{ t.expected }}</td><td>{{ t.actual }}</td>
+          <td class="st st-{{ 'ok' if t.status == 'Пройден' else 'fail' }}">{{ t.status }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+
+  <h3 id="test-sec">8.3. Тестирование защищённости</h3>
+  {{ tcap("Сценарии несанкционированного доступа, SQL-инъекций и XSS") }}
+  <div class="table-wrap"><table class="tests">
+    <thead><tr><th>№</th><th>Атака / проверка</th><th>Входные данные</th><th>Ожидаемая реакция</th><th>Фактическая реакция</th><th>Статус</th></tr></thead>
+    <tbody>{% for t in results.tests or [] if t.group == 'sec' %}
+      <tr><td>{{ t.id }}</td><td>{{ t.title }}</td><td><code>{{ t.input }}</code></td><td>{{ t.expected }}</td><td>{{ t.actual }}</td>
+          <td class="st st-{{ 'ok' if t.status == 'Пройден' else 'fail' }}">{{ t.status }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+
+  <h3 id="test-stats">8.4. Сводная статистика</h3>
+  {% set all_t = results.tests or [] %}
+  {% set passed = all_t|selectattr('status', 'equalto', 'Пройден')|list|length %}
+  {{ tcap("Сводные результаты тестирования") }}
+  <div class="table-wrap"><table class="narrow">
+    <thead><tr><th>Показатель</th><th>Значение</th></tr></thead>
+    <tbody>
+      <tr><td>Всего сценариев</td><td>{{ all_t|length }}</td></tr>
+      <tr><td>Функциональных / безопасности</td><td>{{ all_t|selectattr('group','equalto','func')|list|length }} / {{ all_t|selectattr('group','equalto','sec')|list|length }}</td></tr>
+      <tr><td>Пройдено</td><td>{{ passed }}</td></tr>
+      <tr><td>Не пройдено</td><td>{{ all_t|length - passed }}</td></tr>
+      <tr><td>Доля успешных</td><td>{{ (100 * passed / all_t|length)|round(1) if all_t else 0 }} %</td></tr>
+      <tr><td>Ошибок выявлено / устранено</td><td>{{ c.BUGS|length }} / {{ c.BUGS|length }}</td></tr>
+      <tr><td>Браузеры</td><td>Chromium — автоматическая проверка (Playwright, 1366 и 320 px); Firefox, Edge — ручная проверка</td></tr>
+    </tbody>
+  </table></div>
+
+  <h3 id="bugs">8.5. Выявленные и устранённые ошибки</h3>
+  {{ tcap("Перечень выявленных ошибок") }}
+  <div class="table-wrap"><table>
+    <thead><tr><th>№</th><th>Ошибка</th><th>Причина</th><th>Устранение</th></tr></thead>
+    <tbody>{% for n, e, why, fix in c.BUGS %}<tr><td>{{ n }}</td><td>{{ e }}</td><td>{{ why }}</td><td>{{ fix }}</td></tr>{% endfor %}</tbody>
+  </table></div>
+</section>
+
+<!-- ================================================================ 9 Рабочий модуль -->
+<section id="module" class="doc module">
+  <h2>9. Рабочий модуль АИС</h2>
+  <p class="muted">Работа с базой данных в соответствии с правами роли «{{ user.role_name }}». Права проверяются на сервере: недоступные разделы не отображаются, а прямой запрос к API отклоняется с кодом 403.</p>
+  <div id="app-module" class="app-module" aria-live="polite">
+    <noscript>Для работы модуля включите JavaScript.</noscript>
+    <p class="muted">Загрузка…</p>
+  </div>
+</section>
+
+<dialog id="dlg" class="dlg">
+  <form method="dialog" id="dlg-form" novalidate>
+    <h3 id="dlg-title">Запись</h3>
+    <div id="dlg-body"></div>
+    <p class="form-error" id="dlg-error" role="alert"></p>
+    <div class="dlg-actions">
+      <button type="button" class="btn btn-ghost" id="dlg-cancel">Отмена</button>
+      <button type="submit" class="btn" id="dlg-ok">Сохранить</button>
+    </div>
+  </form>
+</dialog>
+<a href="#content" class="to-top" aria-label="Наверх">↑</a>
+{% endblock %}
+{% block scripts %}<script src="{{ url_for('static', filename='js/module.js') }}"></script>{% endblock %}

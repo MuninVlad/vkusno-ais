@@ -1,0 +1,18 @@
+digraph DFD {
+  rankdir=LR; @STYLE@
+  node [shape=box, style=filled, fillcolor="#ffffff"];
+  E1 [label="Кассир", penwidth=2]; E2 [label="Управляющий", penwidth=2]; E3 [label="Администратор", penwidth=2]; E4 [label="Гость", penwidth=2];
+  node [shape=box, style="rounded,filled", fillcolor="#fff4e3"];
+  P1 [label="1.0\nАутентификация\nи контроль доступа"]; P2 [label="2.0\nОформление\nзаказов"]; P3 [label="3.0\nВедение меню\nи персонала"];
+  P4 [label="4.0\nУчёт клиентов\n(шифрование)"]; P5 [label="5.0\nФормирование\nотчётов"]; P6 [label="6.0\nАдминистрирование\nи аудит"];
+  node [shape=record, style=filled, fillcolor="#e5f1ea"];
+  D1 [label="D1 | Пользователи, сессии"]; D2 [label="D2 | Заказы и позиции"]; D3 [label="D3 | Меню"]; D4 [label="D4 | Сотрудники, рестораны"];
+  D5 [label="D5 | Клиенты (зашифр.)"]; D6 [label="D6 | Журнал аудита"];
+  E1 -> P1 [label="логин, пароль"]; E2 -> P1; E3 -> P1; P1 -> D1 [dir=both, label="хеш, сессия"];
+  E4 -> E1 [label="заказ", style=dashed];
+  E1 -> P2 [label="позиции, оплата"]; P2 -> D2 [label="заказ"]; D3 -> P2 [label="цены"]; P2 -> E1 [label="чек, статус"];
+  E1 -> P4 [label="имя, телефон"]; P4 -> D5 [label="AES-GCM"]; D5 -> P2 [label="клиент"];
+  E2 -> P3 [label="блюда, сотрудники"]; P3 -> D3; P3 -> D4;
+  D2 -> P5; D4 -> P5; D3 -> P5; P5 -> E2 [label="отчёты"];
+  E3 -> P6 [label="учётные записи"]; P6 -> D1; P1 -> D6 [label="события"]; P2 -> D6; P6 -> D6;
+}

@@ -1,0 +1,106 @@
+erDiagram
+  RESTAURANTS ||--o{ EMPLOYEES : "работают"
+  POSITIONS ||--o{ EMPLOYEES : "занимают"
+  RESTAURANTS ||--o{ ORDERS : "принимает"
+  EMPLOYEES ||--o{ ORDERS : "оформляет"
+  CUSTOMERS |o--o{ ORDERS : "делает"
+  ORDERS ||--|{ ORDER_ITEMS : "содержит"
+  MENU_ITEMS ||--o{ ORDER_ITEMS : "входит"
+  CATEGORIES ||--o{ MENU_ITEMS : "группирует"
+  ROLES ||--o{ USERS : "определяет"
+  EMPLOYEES |o--o| USERS : "имеет учётку"
+  USERS |o--o{ SESSIONS : "открывает"
+  USERS |o--o{ AUDIT_LOG : "действия"
+  USERS |o..o{ LOGIN_ATTEMPTS : "по логину"
+  RESTAURANTS {
+    int id PK
+    text name UK
+    text city
+    text address
+    text phone
+    text opened_on
+    int is_active
+  }
+  POSITIONS {
+    int id PK
+    text name UK
+    numeric base_salary
+  }
+  EMPLOYEES {
+    int id PK
+    int restaurant_id FK
+    int position_id FK
+    text full_name
+    text phone_enc "AES-256-GCM"
+    text hire_date
+    numeric salary
+  }
+  CATEGORIES {
+    int id PK
+    text name UK
+  }
+  MENU_ITEMS {
+    int id PK
+    int category_id FK
+    text name UK
+    numeric price
+    int calories
+    int is_available
+  }
+  CUSTOMERS {
+    int id PK
+    text full_name
+    text phone_enc "AES-256-GCM"
+    text phone_hmac UK "HMAC"
+    text email_enc "AES-256-GCM"
+    int bonus_points
+    text registered_at
+  }
+  ORDERS {
+    int id PK
+    int restaurant_id FK
+    int employee_id FK
+    int customer_id FK
+    text created_at
+    text order_type
+    text payment_method
+    text status
+  }
+  ORDER_ITEMS {
+    int order_id PK,FK
+    int menu_item_id PK,FK
+    int quantity
+    numeric unit_price
+  }
+  ROLES {
+    int id PK
+    text code UK
+    text name
+  }
+  USERS {
+    int id PK
+    text login UK
+    text password_hash "PBKDF2"
+    int role_id FK
+    int employee_id FK,UK
+    int is_active
+  }
+  SESSIONS {
+    text token_hash PK "SHA-256"
+    int user_id FK
+    text csrf_token
+    real last_activity
+  }
+  AUDIT_LOG {
+    int id PK
+    int user_id FK
+    text action
+    text created_at
+  }
+  LOGIN_ATTEMPTS {
+    int id PK
+    text login
+    text ip
+    real ts
+    int success
+  }

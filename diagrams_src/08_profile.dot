@@ -1,0 +1,16 @@
+digraph PROF {
+  rankdir=TB; @STYLE@
+  node [shape=record, style=filled, fillcolor="#ffffff"];
+  prof [label="«profile»\nVkusnoAIS", shape=tab, fillcolor="#fff4e3"];
+  mc [label="{«metaclass»\nClass}"]; ma [label="{«metaclass»\nProperty}"]; mo [label="{«metaclass»\nOperation}"];
+  s1 [label="{«stereotype»\nEntity|table : String}"]; s2 [label="{«stereotype»\nBlueprint|url_prefix : String}"];
+  s3 [label="{«stereotype»\nEncrypted|algorithm = AES-256-GCM\lkeyRef : String\l}", fillcolor="#e5f1ea"];
+  s4 [label="{«stereotype»\nHashed|algorithm = PBKDF2-SHA256\literations = 600000\l}", fillcolor="#e5f1ea"];
+  s5 [label="{«stereotype»\nSecured|roles : String[*]\l}", fillcolor="#e5f1ea"];
+  s6 [label="{«stereotype»\nCsrfProtected}", fillcolor="#e5f1ea"];
+  prof -> {s1 s2 s3 s4 s5 s6} [arrowhead=none, style=dotted];
+  s1 -> mc [arrowhead=normal, style=bold, label="«extension»"]; s2 -> mc [arrowhead=normal, style=bold];
+  s3 -> ma [arrowhead=normal, style=bold]; s4 -> ma [arrowhead=normal, style=bold];
+  s5 -> mo [arrowhead=normal, style=bold]; s6 -> mo [arrowhead=normal, style=bold];
+  ex [label="Пример применения:\l«Entity» Customer\l  «Encrypted» phone_enc, email_enc\l«Entity» User\l  «Hashed» password_hash\l«Secured(admin, manager)» deleteOrder()\l«CsrfProtected» createOrder()\l", shape=note, fillcolor="#fffbe8"];
+}

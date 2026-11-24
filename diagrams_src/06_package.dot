@@ -1,0 +1,14 @@
+digraph PKG {
+  rankdir=TB; @STYLE@
+  node [shape=tab, style=filled, fillcolor="#fff4e3"];
+  root [label="vkusno_ais"];
+  app [label="app\n(серверная логика)"]; tpl [label="templates\n(Jinja2)"]; st [label="static\n(css, js, img)"];
+  sql [label="sql\n(schema, seed)"]; tests [label="tests\n(pytest)"]; storage [label="storage\n(архив, загрузки)"]; inst [label="instance\n(БД, ключ, журнал)", fillcolor="#e5f1ea"];
+  node [fillcolor="#ffffff"];
+  a1 [label="security"]; a2 [label="crypto"]; a3 [label="api"]; a4 [label="reports"]; a5 [label="archive"]; a6 [label="db"]; a7 [label="validation"]; a8 [label="content, config"];
+  root -> {app tpl st sql tests storage inst} [arrowhead=odiamond, dir=back];
+  app -> {a1 a2 a3 a4 a5 a6 a7 a8} [arrowhead=odiamond, dir=back];
+  edge [style=dashed, arrowhead=vee, label="«import»", constraint=false];
+  a3 -> a1; a3 -> a2; a3 -> a7; a1 -> a2; a4 -> a6; a5 -> a1;
+  tests -> app [label="«access»"];
+}

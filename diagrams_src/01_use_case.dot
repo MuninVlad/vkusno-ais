@@ -1,0 +1,29 @@
+digraph UC {
+  rankdir=LR;
+  @STYLE@
+  node [shape=plaintext];
+  admin   [label=<<TABLE BORDER="0"><TR><TD><FONT POINT-SIZE="26">☺</FONT></TD></TR><TR><TD>Администратор</TD></TR></TABLE>>];
+  manager [label=<<TABLE BORDER="0"><TR><TD><FONT POINT-SIZE="26">☺</FONT></TD></TR><TR><TD>Управляющий</TD></TR></TABLE>>];
+  cashier [label=<<TABLE BORDER="0"><TR><TD><FONT POINT-SIZE="26">☺</FONT></TD></TR><TR><TD>Кассир</TD></TR></TABLE>>];
+  guest   [label=<<TABLE BORDER="0"><TR><TD><FONT POINT-SIZE="26">☺</FONT></TD></TR><TR><TD>Гость сайта</TD></TR></TABLE>>];
+  manager -> cashier [arrowhead=onormal, style=solid, label="наследует", constraint=false];
+  admin -> manager [arrowhead=onormal, label="наследует", constraint=false];
+  subgraph cluster_sys {
+    label="АИС «Вкусно и быстро»"; style="rounded"; color="#ee8a2b"; fontcolor="#c96d14"; fontsize=13;
+    node [shape=ellipse, style=filled, fillcolor="#fff4e3"];
+    login [label="Войти в систему"]; logout [label="Выйти"]; info [label="Просмотреть\nобщую информацию"];
+    order [label="Оформить заказ"]; status [label="Изменить статус\nзаказа"]; client [label="Зарегистрировать\nклиента"];
+    search [label="Искать и\nфильтровать данные"]; report [label="Сформировать\nотчёт"]; files [label="Просмотреть /\nскачать файлы"];
+    menu [label="Вести меню"]; staff [label="Вести сотрудников"]; delorder [label="Удалить заказ"];
+    rest [label="Вести рестораны\nи должности"]; users [label="Управлять\nпользователями"]; upload [label="Загрузить файл\nв архив"];
+    check [label="Проверить права\nдоступа", fillcolor="#e5f1ea"]; lock [label="Заблокировать вход\n(5 неудач)", fillcolor="#e5f1ea"];
+    pick [label="Выбрать позиции\nменю", fillcolor="#e5f1ea"];
+  }
+  guest -> info; guest -> login;
+  cashier -> login; cashier -> logout; cashier -> order; cashier -> status; cashier -> client; cashier -> search; cashier -> report; cashier -> files;
+  manager -> menu; manager -> staff; manager -> delorder;
+  admin -> rest; admin -> users; admin -> upload;
+  edge [style=dashed, arrowhead=vee];
+  order -> pick [label="«include»"]; lock -> login [label="«extend»"];
+  menu -> check [label="«include»"]; users -> check [label="«include»"]; order -> check [label="«include»"];
+}

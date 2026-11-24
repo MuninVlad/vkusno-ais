@@ -1,0 +1,13 @@
+digraph CS {
+  rankdir=LR; compound=true; @STYLE@
+  node [shape=box, style="rounded,filled", fillcolor="#ffffff"];
+  subgraph cluster_app { label="ServerApplication : Flask"; style=filled; fillcolor="#fff9f1"; color="#ee8a2b";
+    pin [label="", shape=square, width=0.18, fixedsize=true, style=filled, fillcolor="#ee8a2b"];
+    router [label="router : URLMap"]; guard [label="guard : SecurityLayer\n[1]"]; crud [label="crud : ApiBlueprint\n[1]"];
+    rep [label="reports : ReportsBlueprint\n[1]"]; files [label="files : ArchiveBlueprint\n[1]"]; store [label="store : Repository\n[1]"];
+    pout [label="", shape=square, width=0.18, fixedsize=true, style=filled, fillcolor="#2f7a5c"];
+  }
+  http [label="HTTPS-порт\n«port» :8443", shape=plaintext]; dbp [label="«port» SQL", shape=plaintext];
+  http -> pin; pin -> router [label="запрос"]; router -> guard [label="before_request"]; guard -> crud; guard -> rep; guard -> files;
+  crud -> store; rep -> store; guard -> store; store -> pout; pout -> dbp;
+}

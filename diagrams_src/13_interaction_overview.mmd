@@ -1,0 +1,25 @@
+flowchart TD
+  S((●)) --> R1
+  subgraph R1["ref: Авторизация пользователя (рис. 10)"]
+    a1[Кассир] -->|POST /login| a2[Flask: authenticate]
+  end
+  R1 --> D1{Вход выполнен?}
+  D1 -- нет --> R1
+  D1 -- да --> D2{Действие кассира}
+  D2 -- новый заказ --> R2
+  D2 -- клиент --> R3
+  D2 -- отчёт --> R4
+  subgraph R2["sd: Создание заказа (рис. 11)"]
+    b1[module.js] -->|POST /api/orders| b2[ApiBlueprint] -->|INSERT| b3[(SQLite)]
+  end
+  subgraph R3["sd: Регистрация клиента"]
+    c1[module.js] -->|POST /api/customers| c2[crypto.encrypt_field] --> c3[(SQLite)]
+  end
+  subgraph R4["sd: Формирование отчёта"]
+    d1[module.js] -->|GET /api/reports/…| d2[reports] -->|SELECT| d3[(SQLite)]
+  end
+  R2 --> D3{Продолжить работу?}
+  R3 --> D3
+  R4 --> D3
+  D3 -- да --> D2
+  D3 -- «Выход» / тайм-аут 15 мин --> E((◉))

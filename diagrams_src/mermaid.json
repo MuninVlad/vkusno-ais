@@ -1,0 +1,3 @@
+{ "theme": "base", "themeVariables": { "primaryColor": "#fff4e3", "primaryBorderColor": "#1f5641", "primaryTextColor": "#12352a",
+  "lineColor": "#3d5a4f", "fontFamily": "DejaVu Sans, Arial, sans-serif", "fontSize": "14px", "secondaryColor": "#e5f1ea", "tertiaryColor": "#f7f5f0" },
+  "flowchart": { "htmlLabels": false }, "class": { "htmlLabels": false } }

@@ -1,0 +1,16 @@
+digraph OBJ {
+  rankdir=LR; @STYLE@
+  node [shape=plain];
+  o [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD><U><B>o512 : Заказ</B></U></TD></TR><HR/><TR><TD ALIGN="LEFT">id = 512</TD></TR><TR><TD ALIGN="LEFT">создан = 2026-11-23 13:05</TD></TR><TR><TD ALIGN="LEFT">тип = «с собой»</TD></TR><TR><TD ALIGN="LEFT">оплата = «карта»</TD></TR><TR><TD ALIGN="LEFT">статус = «готовится»</TD></TR></TABLE>>];
+  i1 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD><U><B>p1 : ПозицияЗаказа</B></U></TD></TR><HR/><TR><TD ALIGN="LEFT">количество = 2</TD></TR><TR><TD ALIGN="LEFT">цена = 289.00</TD></TR></TABLE>>];
+  i2 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD><U><B>p2 : ПозицияЗаказа</B></U></TD></TR><HR/><TR><TD ALIGN="LEFT">количество = 1</TD></TR><TR><TD ALIGN="LEFT">цена = 109.00</TD></TR></TABLE>>];
+  m1 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD><U><B>гранд : ПозицияМеню</B></U></TD></TR><HR/><TR><TD ALIGN="LEFT">название = «Гранд Бургер»</TD></TR><TR><TD ALIGN="LEFT">цена = 289.00</TD></TR></TABLE>>];
+  m2 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD><U><B>фри : ПозицияМеню</B></U></TD></TR><HR/><TR><TD ALIGN="LEFT">название = «Картофель фри (ср.)»</TD></TR><TR><TD ALIGN="LEFT">цена = 109.00</TD></TR></TABLE>>];
+  r [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD><U><B>тверская : Ресторан</B></U></TD></TR><HR/><TR><TD ALIGN="LEFT">название = «… — Тверская»</TD></TR><TR><TD ALIGN="LEFT">город = «Москва»</TD></TR></TABLE>>];
+  e [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD><U><B>kas1 : Сотрудник</B></U></TD></TR><HR/><TR><TD ALIGN="LEFT">ФИО = «Кузнецов Сергей …»</TD></TR><TR><TD ALIGN="LEFT">должность = «Кассир»</TD></TR></TABLE>>];
+  c [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD><U><B>к1 : Клиент</B></U></TD></TR><HR/><TR><TD ALIGN="LEFT">имя = «Артём Белов»</TD></TR><TR><TD ALIGN="LEFT">бонусы = 1240</TD></TR></TABLE>>];
+  t [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#e5f1ea" COLOR="#1f5641"><TR><TD><U><B>итог : СуммаЗаказа</B></U></TD></TR><HR/><TR><TD ALIGN="LEFT">total = 687.00</TD></TR></TABLE>>];
+  o -> i1 [arrowhead=none]; o -> i2 [arrowhead=none]; i1 -> m1 [arrowhead=none]; i2 -> m2 [arrowhead=none];
+  r -> o [arrowhead=none, label="принят в"]; e -> o [arrowhead=none, label="оформил"]; c -> o [arrowhead=none, label="сделал"];
+  o -> t [style=dashed, label="вычисляется"];
+}

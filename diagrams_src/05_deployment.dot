@@ -1,0 +1,18 @@
+digraph DEP {
+  rankdir=LR; @STYLE@
+  node [shape=box3d, style=filled, fillcolor="#ffffff"];
+  pc [label="«device»\nРабочее место кассира / управляющего\n(Windows / Linux / Android)"];
+  srv [label="«device»\nСервер ресторанной сети\nLinux, 2 vCPU, 2 ГБ ОЗУ"];
+  bk [label="«device»\nХранилище резервных копий\n(NAS / внешний диск)"];
+  node [shape=component, fillcolor="#fff4e3"];
+  br [label="«execution environment»\nБраузер Chrome / Firefox / Edge"];
+  py [label="«execution environment»\nPython 3.11 + Flask 3\n(порт 8443, TLS 1.2+)"];
+  art [label="«artifact»\nvkusno_ais (app, templates, static)"];
+  db [label="«artifact»\nvkusno.db (SQLite)", shape=cylinder, fillcolor="#e5f1ea"];
+  k [label="«artifact»\ndata.key, server.key\n(права 0600)", shape=note];
+  cron [label="«artifact»\nbackup.py (cron 03:00)"];
+  pc -> br [arrowhead=none, style=dashed, label="размещён"]; srv -> py [arrowhead=none, style=dashed]; py -> art [arrowhead=none, style=dashed];
+  srv -> db [arrowhead=none, style=dashed]; srv -> k [arrowhead=none, style=dashed]; srv -> cron [arrowhead=none, style=dashed];
+  br -> py [label="HTTPS / TCP 8443", dir=both, color="#ee8a2b", penwidth=2];
+  cron -> bk [label="zip + SHA-256", color="#2f7a5c"];
+}

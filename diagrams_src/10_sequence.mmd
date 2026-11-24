@@ -1,0 +1,33 @@
+sequenceDiagram
+  autonumber
+  actor U as Пользователь
+  participant B as Браузер
+  participant S as Flask (security)
+  participant C as crypto
+  participant D as SQLite
+  U->>B: Открыть https://…/
+  B->>S: GET /
+  S->>D: INSERT sessions (гостевая, csrf_token)
+  S-->>B: 200 + Set-Cookie vb_sid (HttpOnly, Secure, SameSite=Strict)
+  U->>B: Ввести логин и пароль
+  B->>B: Клиентская валидация
+  B->>S: POST /login (login, password, csrf_token)
+  S->>S: check_csrf()
+  S->>D: Неудачных попыток за 15 мин?
+  alt ≥ 5 неудач
+    S-->>B: 401 «Вход временно заблокирован»
+  else
+    S->>D: SELECT user
+    S->>C: verify_password (PBKDF2, compare_digest)
+    alt пароль неверный
+      S->>D: INSERT login_attempts (success=0)
+      S-->>B: 401 «Неверный логин или пароль»
+    else пароль верный
+      S->>D: DELETE старой сессии
+      S->>D: INSERT новой сессии (новый id 256 бит)
+      S->>D: INSERT audit_log (login)
+      S-->>B: 302 → / + новый vb_sid
+      B->>S: GET /system
+      S-->>B: 200 (страница 2)
+    end
+  end

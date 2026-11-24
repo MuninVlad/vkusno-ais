@@ -1,0 +1,16 @@
+digraph COMM {
+  rankdir=LR; @STYLE@
+  node [shape=box, style=filled, fillcolor="#ffffff"];
+  k [label="<u>:Кассир</u>", shape=plaintext, label=<<U>:Кассир</U>>];
+  ui [label=<<U>:module.js</U>>]; sec [label=<<U>:SecurityLayer</U>>]; api [label=<<U>:ApiBlueprint</U>>];
+  val [label=<<U>:Validation</U>>]; db [label=<<U>:Repository</U>>]; aud [label=<<U>:AuditLog</U>>];
+  k -> ui [label="1: заполнить форму заказа"];
+  ui -> ui [label="1.1: validateClient()"];
+  ui -> sec [label="2: POST /api/orders\n+ X-CSRF-Token"];
+  sec -> sec [label="2.1: load_session()\n2.2: check_csrf()"];
+  sec -> api [label="3: order_create()"];
+  api -> val [label="3.1: clean(ORDER_FIELDS)"];
+  api -> db [label="3.2: INSERT orders\n3.3*: INSERT order_items"];
+  api -> aud [label="3.4: audit('create')"];
+  api -> ui [label="4: 201 {id, message}", style=dashed];
+}

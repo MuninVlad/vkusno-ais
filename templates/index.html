@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Главная — {{ cfg.SYSTEM_NAME }}{% endblock %}
+{% block content %}
+<section class="hero">
+  <div class="hero-text">
+    <p class="eyebrow">Страница 1 · Общая информация</p>
+    <h1>{{ cfg.SYSTEM_FULL_NAME }}</h1>
+    <p class="lead">{{ c.ANNOTATION }}</p>
+    <dl class="facts">
+      <div><dt>Предметная область</dt><dd>Общественное питание, сеть ресторанов быстрого обслуживания</dd></div>
+      <div><dt>Решаемая задача</dt><dd>Единый учёт заказов, меню, персонала и клиентов с аналитикой продаж</dd></div>
+      <div><dt>Тип системы</dt><dd>Трёхзвенное веб-приложение (браузер — Flask — SQLite)</dd></div>
+    </dl>
+  </div>
+
+  <aside class="auth-card" id="login">
+    {% if user %}
+      <h2>Вы вошли в систему</h2>
+      <p class="muted">Логин: <b>{{ user.login }}</b><br>Роль: <b>{{ user.role_name }}</b></p>
+      <div class="stack">
+        <a class="btn" href="{{ url_for('main.system') }}">2. Описание системы</a>
+        <a class="btn btn-secondary" href="{{ url_for('main.system') }}#module">Рабочий модуль АИС</a>
+        <a class="btn btn-secondary" href="{{ url_for('main.archive') }}">3. Файловый архив</a>
+      </div>
+      <form method="post" action="{{ url_for('main.logout') }}" class="mt">
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <button class="btn btn-ghost wide" type="submit">Выход</button>
+      </form>
+      <p class="hint">Сессия завершится автоматически после {{ cfg.SESSION_IDLE_TIMEOUT // 60 }} минут бездействия.</p>
+    {% else %}
+      <h2>Вход в систему</h2>
+      <form method="post" action="{{ url_for('main.login') }}" id="login-form" novalidate>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <label for="f-login">Логин</label>
+        <input id="f-login" name="login" type="text" autocomplete="username" required
+               minlength="3" maxlength="32" pattern="[A-Za-z0-9_.\-]{3,32}" value="{{ form_login or '' }}">
+        <span class="field-error" data-for="f-login"></span>
+        <label for="f-password">Пароль</label>
+        <div class="pw">
+          <input id="f-password" name="password" type="password" autocomplete="current-password" required maxlength="128">
+          <button type="button" class="pw-toggle" aria-label="Показать пароль">👁</button>
+        </div>
+        <span class="field-error" data-for="f-password"></span>
+        <button class="btn wide" type="submit">Войти</button>
+      </form>
+      <p class="hint">После 5 неудачных попыток вход блокируется на 5 минут.</p>
+    {% endif %}
+  </aside>
+</section>
+
+<section class="grid-2">
+  <article class="card">
+    <h2>Цель разработки</h2>
+    <p>{{ c.GOAL }}</p>
+    <h3>Задачи</h3>
+    <ol>{% for t in c.TASKS %}<li>{{ t }}</li>{% endfor %}</ol>
+  </article>
+  <article class="card">
+    <h2>Пользователи (роли) системы</h2>
+    <div class="table-wrap"><table>
+      <thead><tr><th>Роль</th><th>Функции</th></tr></thead>
+      <tbody>{% for name, code, d in c.ROLES %}<tr><td><b>{{ name }}</b><br><code>{{ code }}</code></td><td>{{ d }}</td></tr>{% endfor %}</tbody>
+    </table></div>
+  </article>
+</section>
+
+<section class="card">
+  <h2>Основные функции</h2>
+  <ul class="features">{% for f in c.FUNCTIONS %}<li>{{ f }}</li>{% endfor %}</ul>
+</section>
+{% endblock %}

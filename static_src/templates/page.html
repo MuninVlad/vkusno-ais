@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ title }} — {{ cfg.SYSTEM_NAME }}{% endblock %}
+{% block content %}
+<div id="secure" data-src="{{ src }}" data-aad="{{ aad }}">
+  <p class="muted">Расшифровка содержимого…</p>
+  <noscript>Для просмотра страницы включите JavaScript.</noscript>
+</div>
+{% endblock %}
+{% block scripts %}{% if page == 'system' %}<script src="assets/js/localapi.js"></script>{% endif %}{% endblock %}

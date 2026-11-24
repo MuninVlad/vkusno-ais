@@ -1,0 +1,9 @@
+# Секреты и данные установки — не публикуются
+instance/
+certs/
+backups/
+# Служебные файлы
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+docs_src/.build/

@@ -1,0 +1,17 @@
+digraph SCR {
+  rankdir=TB; @STYLE@ ranksep=0.8;
+  node [shape=plain];
+  p1 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD BGCOLOR="#12352a"><FONT COLOR="white"><B>Страница 1 «Главная» /</B></FONT></TD></TR><TR><TD ALIGN="LEFT">Шапка: система, ФИО, группа, тема</TD></TR><TR><TD ALIGN="LEFT">Аннотация · цель · задачи</TD></TR><TR><TD ALIGN="LEFT">Роли · функции</TD></TR><TR><TD ALIGN="LEFT">Форма входа: логин, пароль, «Войти»</TD></TR></TABLE>>];
+  p1a [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#f2f8f4" COLOR="#1f5641"><TR><TD BGCOLOR="#12352a"><FONT COLOR="white"><B>Страница 1 (после входа)</B></FONT></TD></TR><TR><TD ALIGN="LEFT">Карточка пользователя</TD></TR><TR><TD ALIGN="LEFT">Ссылки на страницы 2 и 3</TD></TR><TR><TD ALIGN="LEFT">Кнопка «Выход»</TD></TR></TABLE>>];
+  p2 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD BGCOLOR="#12352a"><FONT COLOR="white"><B>Страница 2 «Описание системы» /system</B></FONT></TD></TR><TR><TD ALIGN="LEFT">Оглавление (якорные ссылки)</TD></TR><TR><TD ALIGN="LEFT">ТЗ · анализ · требования</TD></TR><TR><TD ALIGN="LEFT">Диаграммы · модель данных</TD></TR><TR><TD ALIGN="LEFT">Безопасность · тестирование</TD></TR><TR><TD ALIGN="LEFT">Рабочий модуль АИС</TD></TR></TABLE>>];
+  mod [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#fff4e3" COLOR="#1f5641"><TR><TD BGCOLOR="#12352a"><FONT COLOR="white"><B>Рабочий модуль #module</B></FONT></TD></TR><TR><TD ALIGN="LEFT">Вкладки: Заказы · Меню · Категории · Клиенты</TD></TR><TR><TD ALIGN="LEFT">Сотрудники · Рестораны · Должности</TD></TR><TR><TD ALIGN="LEFT">Пользователи · Отчёты</TD></TR><TR><TD ALIGN="LEFT">Поиск + фильтры · таблица</TD></TR><TR><TD ALIGN="LEFT">Добавить / Изменить / Удалить</TD></TR></TABLE>>];
+  dlg [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#fff4e3" COLOR="#1f5641"><TR><TD BGCOLOR="#12352a"><FONT COLOR="white"><B>Модальная форма</B></FONT></TD></TR><TR><TD ALIGN="LEFT">Поля с проверкой ввода</TD></TR><TR><TD ALIGN="LEFT">Сообщения об ошибках</TD></TR><TR><TD ALIGN="LEFT">Сохранить / Отмена</TD></TR></TABLE>>];
+  p3 [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#ffffff" COLOR="#1f5641"><TR><TD BGCOLOR="#12352a"><FONT COLOR="white"><B>Страница 3 «Файловый архив» /archive</B></FONT></TD></TR><TR><TD ALIGN="LEFT">Группы файлов (графика, документы,</TD></TR><TR><TD ALIGN="LEFT">текст, исходный код, криптография)</TD></TR><TR><TD ALIGN="LEFT">Имя · описание · формат · размер · дата</TD></TR><TR><TD ALIGN="LEFT">Открыть / Скачать · Загрузка (админ.)</TD></TR></TABLE>>];
+  err [label=<<TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="5" BGCOLOR="#fbe7e5" COLOR="#1f5641"><TR><TD BGCOLOR="#12352a"><FONT COLOR="white"><B>Страница ошибки</B></FONT></TD></TR><TR><TD ALIGN="LEFT">403 / 404 / 405 / 413 / 500</TD></TR></TABLE>>];
+  p1 -> p1a [label=" успешный вход"]; p1a -> p1 [label=" Выход"];
+  p1a -> p2 [label=" меню"]; p1a -> p3 [label=" меню"]; p2 -> p3 [dir=both, label=" меню", constraint=false];
+  p2 -> mod [label=" #module"]; mod -> dlg [dir=both];
+  p2 -> p1 [label=" нет сессии / тайм-аут\n → переадресация", style=dashed, color="#c8372d", fontcolor="#c8372d", constraint=false];
+  p3 -> err [style=dotted];
+  {rank=same; p2; p3;}
+}

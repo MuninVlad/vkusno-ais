@@ -1,0 +1,15 @@
+digraph SEC {
+  rankdir=LR; @STYLE@
+  node [shape=box, style="rounded,filled", fillcolor="#ffffff"];
+  pw [label="Пароль\nпользователя"]; ph [label="Телефон, e-mail"];
+  k0 [label="Мастер-ключ 256 бит\ninstance/data.key (0600)\nили VB_MASTER_KEY", shape=note, fillcolor="#fff4e3"];
+  hk [label="HKDF-SHA256"]; ka [label="Подключ AES\n256 бит"]; kh [label="Подключ HMAC\n256 бит"];
+  pb [label="PBKDF2-HMAC-SHA256\nсоль 16 Б, 600 000 итер.", fillcolor="#e5f1ea"];
+  aes [label="AES-256-GCM\nnonce 12 Б, тег 16 Б\nAAD = имя поля", fillcolor="#e5f1ea"]; hm [label="HMAC-SHA256", fillcolor="#e5f1ea"];
+  db1 [label="users.password_hash\npbkdf2_sha256$600000$соль$хеш", shape=cylinder]; db2 [label="*_enc\nv1:base64(nonce‖шифртекст‖тег)", shape=cylinder];
+  db3 [label="customers.phone_hmac\n(поиск, UNIQUE)", shape=cylinder];
+  tls [label="Канал браузер ↔ сервер\nTLS 1.2/1.3, RSA-2048", shape=box, fillcolor="#fdf0e2"];
+  pw -> pb -> db1 [label="необратимо"]; k0 -> hk; hk -> ka; hk -> kh; ka -> aes; kh -> hm;
+  ph -> aes -> db2 [label="обратимо"]; ph -> hm -> db3;
+  pw -> tls [style=dashed, dir=back, label="передача"];
+}

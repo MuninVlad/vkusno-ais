@@ -1,0 +1,11 @@
+digraph BK {
+  rankdir=LR; @STYLE@
+  node [shape=box, style="rounded,filled", fillcolor="#ffffff"];
+  cron [label="Планировщик\ncron 03:00 ежедневно", fillcolor="#fff4e3"];
+  db [label="vkusno.db", shape=cylinder, fillcolor="#e5f1ea"]; st [label="storage/\n(архив файлов)", shape=folder];
+  b [label="backup.py"]; api [label="SQLite Online\nBackup API"]; zip [label="vkusno_ГГГГММДД_ЧЧММСС.zip", shape=note];
+  sha [label="SHA-256 →\nbackups/manifest.txt"]; rot [label="Ротация: 7 ежедневных\n+ 4 еженедельных"];
+  ext [label="Внешний носитель /\nдругая площадка", shape=box3d]; key [label="data.key — резервируется\nОТДЕЛЬНО и вручную", shape=note, fillcolor="#fbe7e5"];
+  res [label="Восстановление:\nbackup.py --restore\n(проверка SHA-256)", fillcolor="#f2f8f4"];
+  cron -> b; db -> api -> b; st -> b; b -> zip -> sha; zip -> rot; zip -> ext [label="копия"]; zip -> res [style=dashed];
+}

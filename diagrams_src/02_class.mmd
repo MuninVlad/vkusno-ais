@@ -1,0 +1,111 @@
+classDiagram
+  direction LR
+  class Restaurant {
+    +int id
+    +str name
+    +str city
+    +str address
+    +str phone
+    +date opened_on
+    +bool is_active
+  }
+  class Position {
+    +int id
+    +str name
+    +decimal base_salary
+  }
+  class Employee {
+    +int id
+    +str full_name
+    -str phone_enc
+    +date hire_date
+    +decimal salary
+    +phone() str
+  }
+  class Category {
+    +int id
+    +str name
+  }
+  class MenuItem {
+    +int id
+    +str name
+    +decimal price
+    +int calories
+    +bool is_available
+  }
+  class Customer {
+    +int id
+    +str full_name
+    -str phone_enc
+    -str phone_hmac
+    -str email_enc
+    +int bonus_points
+    +findByPhone(phone) Customer
+  }
+  class Order {
+    +int id
+    +datetime created_at
+    +OrderType order_type
+    +Payment payment_method
+    +Status status
+    +total() decimal
+    +changeStatus(s)
+  }
+  class OrderItem {
+    +int quantity
+    +decimal unit_price
+    +sum() decimal
+  }
+  class User {
+    +int id
+    +str login
+    -str password_hash
+    +bool is_active
+    +checkPassword(pw) bool
+  }
+  class Role {
+    +str code
+    +str name
+  }
+  class Session {
+    -str token_hash
+    +str csrf_token
+    +float last_activity
+    +isExpired() bool
+    +rotate()
+  }
+  class SecurityLayer {
+    +load_session()
+    +check_csrf()
+    +authenticate(login, pw)
+    +login_user(user)
+    +logout_user()
+  }
+  class Crypto {
+    +hash_password(pw) str
+    +verify_password(pw, h) bool
+    +encrypt_field(v, f) str
+    +decrypt_field(t, f) str
+    +blind_index(v) str
+  }
+  class ApiBlueprint {
+    +list_rows(entity)
+    +create_row(entity)
+    +update_row(entity, id)
+    +delete_row(entity, id)
+  }
+  Restaurant "1" --> "*" Employee : работает
+  Position "1" --> "*" Employee
+  Restaurant "1" --> "*" Order : принимает
+  Employee "1" --> "*" Order : оформляет
+  Customer "0..1" --> "*" Order : делает
+  Order "1" *-- "1..*" OrderItem : содержит
+  MenuItem "1" --> "*" OrderItem
+  Category "1" --> "*" MenuItem
+  Role "1" --> "*" User
+  User "0..1" --> "0..1" Employee : связан
+  User "1" --> "*" Session
+  ApiBlueprint ..> SecurityLayer : использует
+  ApiBlueprint ..> Crypto : использует
+  SecurityLayer ..> Crypto : использует
+  SecurityLayer ..> Session : управляет
